@@ -31,4 +31,29 @@
             }
             return Ok(product);
         }
+
+        [HttpGet("search")]
+        public ActionResult<List<Product>> Search([FromQuery] string? name, [FromQuery] string? supplier)
+        {
+            List<Product> products = FakeWarehouseStore.Products;
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                products = products
+                    .Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+            if (!string.IsNullOrWhiteSpace(supplier))
+            {
+                    products = products
+                        .Where(p => p.SupplierName != null &&
+                                    p.SupplierName.Contains(supplier, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+            }
+            if (string.IsNullOrWhiteSpace(name) && string.IsNullOrWhiteSpace(supplier))
+            {
+                return BadRequest("At least one parameter should be provided");
+            }
+            return Ok(products);
+                }
     }
