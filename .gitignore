@@ -481,6 +481,5 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
-# Uploaded product images - keep the folder (the app fails to start without it), not its contents
 wwwroot/uploads/*
 !wwwroot/uploads/.gitkeep

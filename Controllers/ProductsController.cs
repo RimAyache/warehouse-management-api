@@ -154,7 +154,7 @@ using System.Globalization;
         }
 
         [HttpPost("{id}/image")]
-        public async Task<ActionResult<ProductImage>> UploadImage(Guid id, [FromForm] IFormFile file)
+        public async Task<ActionResult<ProductImage>> UploadImage(Guid id, IFormFile file)
         {
             var product = FakeWarehouseStore.Products.FirstOrDefault(p => p.Id == id);
 
