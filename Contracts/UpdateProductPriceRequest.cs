@@ -1,4 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+
 public class UpdateProductPriceRequest
     {
-        public double Price { get; set; }
+        [Range(typeof(decimal), "0.01", "1000000",
+            ParseLimitsInInvariantCulture = true, ConvertValueInInvariantCulture = true)]
+        public decimal Price { get; set; }
     }
