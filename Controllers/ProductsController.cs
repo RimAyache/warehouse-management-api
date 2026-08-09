@@ -7,11 +7,16 @@ using System.Globalization;
     {
         private readonly ILogger<ProductsController> thislogger;
         private readonly IWebHostEnvironment environment;
+        private readonly SupplierService supplierService;
 
-        public ProductsController(ILogger<ProductsController> logger, IWebHostEnvironment env)
+        public ProductsController(
+            ILogger<ProductsController> logger,
+            IWebHostEnvironment env,
+            SupplierService supplierService)
         {
             thislogger = logger;
             environment = env;
+            this.supplierService = supplierService;
         }
 
         [HttpGet]
@@ -227,6 +232,35 @@ using System.Globalization;
             product.LastUpdatedAt = DateTime.UtcNow;
 
             return NoContent();
+        }
+
+        [HttpPost("{id}/assign-supplier/{supplierId}")]
+        public ActionResult<Product> AssignSupplier(Guid id, Guid supplierId)
+        {
+            var product = FakeWarehouseStore.Products.FirstOrDefault(p => p.Id == id);
+
+            if (product == null)
+            {
+                return NotFound("Product not found");
+            }
+
+            var supplier = supplierService.GetById(supplierId);
+
+            if (supplier == null)
+            {
+                return NotFound("Supplier not found");
+            }
+
+            if (product.IsArchived)
+            {
+                return Conflict("Cannot modify an archived product");
+            }
+
+            product.SupplierId = supplier.Id;
+            product.SupplierName = supplier.Name;
+            product.LastUpdatedAt = DateTime.UtcNow;
+
+            return Ok(product);
         }
 
         [HttpGet("server-time")]
