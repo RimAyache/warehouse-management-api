@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using warehouse.Api.Models;
 
 public class WarehouseDbContext : DbContext
 {

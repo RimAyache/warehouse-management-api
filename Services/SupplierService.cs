@@ -1,3 +1,5 @@
+using warehouse.Api.Models;
+
 public class SupplierService
     {
         public List<Supplier> GetAll()

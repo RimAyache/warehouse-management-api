@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using warehouse.Api.Models;
 
  [ApiController]
     [Route("api/products")]

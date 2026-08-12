@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using warehouse.Api.Models;
 
 [ApiController]
     [Route("api/suppliers")]

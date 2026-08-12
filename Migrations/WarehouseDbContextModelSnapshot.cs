@@ -21,7 +21,7 @@ namespace warehouse.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Product", b =>
+            modelBuilder.Entity("warehouse.Api.Models.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,10 +66,12 @@ namespace warehouse.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("SupplierId");
+
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("ProductImage", b =>
+            modelBuilder.Entity("warehouse.Api.Models.ProductImage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,7 +95,7 @@ namespace warehouse.Api.Migrations
                     b.ToTable("ProductImages");
                 });
 
-            modelBuilder.Entity("Supplier", b =>
+            modelBuilder.Entity("warehouse.Api.Models.Supplier", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,16 +125,25 @@ namespace warehouse.Api.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("ProductImage", b =>
+            modelBuilder.Entity("warehouse.Api.Models.Product", b =>
                 {
-                    b.HasOne("Product", null)
+                    b.HasOne("warehouse.Api.Models.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId");
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("warehouse.Api.Models.ProductImage", b =>
+                {
+                    b.HasOne("warehouse.Api.Models.Product", null)
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Product", b =>
+            modelBuilder.Entity("warehouse.Api.Models.Product", b =>
                 {
                     b.Navigation("Images");
                 });
