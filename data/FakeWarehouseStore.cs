@@ -1,3 +1,5 @@
+using warehouse.Api.Models;
+
 public static class FakeWarehouseStore
     {
         public static List<Product> Products { get; set; } = new List<Product>

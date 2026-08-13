@@ -1,3 +1,5 @@
+namespace warehouse.Api.Models;
+
 public class ProductImage
     {
         public Guid Id { get; set; }

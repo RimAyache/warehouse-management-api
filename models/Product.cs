@@ -1,3 +1,5 @@
+namespace warehouse.Api.Models;
+
 public class Product
     {
         public Guid Id { get; set; }
@@ -8,6 +10,7 @@ public class Product
         public int QuantityInStock { get; set; }
         public string SupplierName { get; set; }
         public Guid? SupplierId { get; set; }
+        public Supplier? Supplier { get; set; }
         public DateTime? ExpiryDate { get; set; }
         public bool IsArchived { get; set; } 
         public DateTime CreatedAt { get; set; } 
